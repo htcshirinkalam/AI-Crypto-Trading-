@@ -1,0 +1,160 @@
+# Canonical requirements file
+# Windows-friendly and Python-version-aware. Avoids native builds by selecting
+# prebuilt wheels via environment markers. Heavy compile packages are disabled
+# on Windows by default (install separately via conda or prebuilt wheels if needed).
+
+# Prefer PyTorch wheels from the official index (CPU by default). Comment out if not needed.
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+# === Core numeric stack (version-aware pins) ===
+# NumPy
+numpy==1.26.4; python_version < "3.12"
+numpy>=2.0; python_version >= "3.12"
+
+# Pandas
+pandas>=1.5.3,<2.0; python_version < "3.12"
+pandas>=2.2; python_version >= "3.12"
+
+# Scikit-learn
+scikit-learn>=1.3,<1.5; python_version < "3.12"
+scikit-learn>=1.5; python_version >= "3.12"
+
+# Date/time utilities
+python-dateutil>=2.8.0
+pytz>=2022.1
+
+# === API stack ===
+fastapi>=0.68.0
+uvicorn>=0.15.0
+pydantic>=1.8.0
+loguru>=0.6.0
+python-dotenv>=0.19.0
+pyyaml>=6.0
+aiohttp>=3.8.0
+requests>=2.28.0
+
+# === Data sources and utils ===
+ccxt>=2.0.0
+yfinance>=0.1.70
+cryptocompare>=0.7.0
+alpha-vantage>=2.3.0
+polygon-api-client>=1.0.0
+sqlalchemy>=1.4.0
+redis>=4.0.0
+pymongo>=4.0.0
+psycopg2-binary>=2.9.0
+
+# === Visualizations ===
+matplotlib>=3.5.0
+seaborn>=0.11.0
+plotly>=5.10.0
+
+# === NLP / ML (light) ===
+nltk>=3.7
+textblob>=0.17.0
+vaderSentiment>=3.3.2
+beautifulsoup4>=4.11.0
+transformers>=4.20.0
+sentence-transformers>=2.2.0
+tqdm>=4.64.0
+safetensors>=0.4.0
+huggingface_hub[hf_xet]>=0.20.0
+
+# Heavy ML frameworks (wheels exist, may be large)
+torch>=1.12.0; python_version < "3.12"
+torch>=2.2.0; python_version >= "3.12"
+
+# TensorFlow: supported on Python < 3.12. For Windows, prefer tensorflow-intel wheels.
+tensorflow-intel==2.20.*; python_version < "3.12" and platform_system == "Windows"
+tensorflow==2.20.*; python_version < "3.12" and platform_system != "Windows"
+tf-keras==2.20.*; python_version < "3.12"
+keras>=3.10.0; python_version < "3.12"
+
+xgboost>=1.7.0
+lightgbm>=4.3,<5
+
+# Technical analysis (pure python)
+ta>=0.10.0
+TA-Lib>=0.4.24
+
+# Time series and stats
+statsmodels>=0.13.0
+arch>=5.0.0
+sktime>=0.15.0
+scipy>=1.10.0
+
+# === Advanced Time Series Models (Self-Improving AI) ===
+# N-BEATS and other time series models
+darts>=0.24.0
+u8darts[torch]>=0.24.0
+
+# Temporal Fusion Transformer
+pytorch-forecasting>=1.5.0
+lightning>=2.5.0
+# Match TF 2.20 on Python < 3.12; looser pin otherwise
+tensorboard==2.20.*; python_version < "3.12"
+tensorboard>=2.13.0; python_version >= "3.12"
+
+# DeepAR (Probabilistic forecasting)
+gluonts>=0.16.0
+mxnet>=1.2.0
+toolz>=0.12.0
+graphviz>=0.21
+
+# ARIMA and seasonal models
+pmdarima>=2.0.3
+
+# Model experimentation and tracking
+mlflow>=2.0.0
+optuna>=3.0.0
+shap>=0.42.1
+
+# === Graph Neural Networks (for cross-asset modeling) ===
+torch-geometric>=2.3.1; platform_system != "Windows"
+torch-scatter>=2.1.1; platform_system != "Windows"
+torch-sparse>=0.6.17; platform_system != "Windows"
+# Note: On Windows, install torch-geometric manually from wheels
+
+# === On-Chain Data Integration ===
+web3>=6.0.0
+eth-utils>=2.1.0
+eth-hash>=0.5.0
+
+# === Advanced Data Storage & Monitoring ===
+clickhouse-driver>=0.2.6
+prometheus-client>=0.17.1
+grafana-api>=1.0.3
+influxdb-client>=1.36.0
+
+# Perf/monitoring and notebooks
+psutil>=5.9.0
+memory-profiler>=0.60.0
+jupyter>=1.0.0
+ipykernel>=6.0.0
+
+# === Windows compile-heavy packages disabled by default ===
+# CVXPY for portfolio optimization
+cvxpy>=1.3.0
+cvxopt>=1.3.0
+riskparityportfolio>=0.4.0; platform_system != "Windows"
+
+# Optional quant packages
+quantlib>=1.31
+quantstats>=0.0.59
+quandl>=3.7.0
+fredapi>=0.4.0
+asyncio-mqtt>=0.11.0
+
+# === Scheduling and automation ===
+schedule>=1.1.0
+
+# === UI and web framework ===
+streamlit>=1.25.0
+
+# === Container management (optional) ===
+docker>=6.0.0
+
+# === Developer tooling (optional) ===
+black>=22.0.0
+mypy>=0.950
+joblib>=1.2.0
